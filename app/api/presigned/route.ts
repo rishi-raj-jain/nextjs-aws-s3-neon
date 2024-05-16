@@ -5,7 +5,8 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 export async function GET(request: NextRequest) {
   const accessKeyId = process.env.AWS_KEY_ID;
   const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
-  if (!accessKeyId || !secretAccessKey) {
+  const s3BucketName = process.env.AWS_S3_BUCKET_NAME;
+  if (!accessKeyId || !secretAccessKey || !s3BucketName) {
     return new Response(null, { status: 500 });
   }
   const searchParams = request.nextUrl.searchParams;
@@ -22,7 +23,7 @@ export async function GET(request: NextRequest) {
     },
   });
   const command = new PutObjectCommand({
-    Bucket: "launchfast-bucket-0",
+    Bucket: s3BucketName,
     Key: fileName,
     ContentType: contentType,
   });
