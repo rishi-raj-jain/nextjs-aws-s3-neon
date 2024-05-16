@@ -1,5 +1,7 @@
 "use client";
 
+import { ChangeEvent } from "react";
+
 export default function Home() {
   const uploadFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null | undefined = e.target.files?.[0];
